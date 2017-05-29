@@ -1,54 +1,61 @@
 package skarbfi;
 
+import java.util.*;
+import java.lang.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 import java.util.Scanner;
-
-public class SKARBFI {
-
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+ 
+class MAIN
+{
+	public static void main (String[] args) throws java.lang.Exception
+	{
+		     Scanner sc = new Scanner(System.in);
         int numerTasks;
         int numberRepeat=0;
-        
-        do{
-        System.out.println("Podaj ilość zestawów danych od 1 do 50");
+ 
+        List<String> lista = new ArrayList<String>();
+        //System.out.println("Podaj ilość zestawów danych od 1 do 50");
         numerTasks = sc.nextInt();
-        numberRepeat++;
-        if(numberRepeat>2) System.out.println("Czytać nie umiesz? Zaraz program zakończy działanie !");
-        if(numberRepeat>4) System.exit(0);
-        }while(!(numerTasks >= 1 && numerTasks<= 50));
-        
+ 
+ 
             for (int j = 0; j < numerTasks; j++) {
-                System.out.println("\n Podaj ilość wskazówek ");
+                //System.out.println("\n Podaj ilość wskazówek ");
                 int numberHints = sc.nextInt();
-
+ 
                 int a = 0, b = 0;
                 int x = 0, y = 0;
-                Map<Integer, Integer> map = new HashMap<>();
-                Random generator = new Random();
-
-                System.out.println("Mapa ruchów które doprowadzą Cię do skarbu : ");
+ 
+ 
+             //   System.out.println("Mapa ruchów które doprowadzą Cię do skarbu : ");
                 //GENEROWANIE LISTY RUCHÓW MAPY
                 //GENEROWANIE WSPOLRZEDNYCH WYNIKOWYCH, OKRESLAJACYCH WSPOLRZEDNE SKARBU
                 for (int i = 0; i < numberHints; i++) {
-                    a = generator.nextInt(4); //przypisz a -wartość z zakresu <0-3>, wartość ta określa kierunki 0-N,1-S,2-W,3-E
-                    b = generator.nextInt(10001); //przypisz b -wartość z zakresu <0-10000>, wartość ta określa liczbę kroków wykonanych w danym kierunku(czyli liczbe jednostek w układzie współrzędnym) 
+                    a=sc.nextInt();
+                    b=sc.nextInt();
+                    //przypisz a -wartość z zakresu <0-3>, wartość ta określa kierunki 0-N,1-S,2-W,3-E
+                    //przypisz b -wartość z zakresu <0-10000>, wartość ta określa liczbę kroków wykonanych w danym kierunku(czyli liczbe jednostek w układzie współrzędnym) 
                     switch (a) {
                         case 0:
                             y += b;
+                            break;
                         case 1:
                             y -= b;
+                            break;
                         case 2:
                             x -= b;
+                            break;
                         case 3:
                             x += b;
+                            break;
                     }
-                    System.out.println("(" + a + "," + b + ")");
+ 
+ 
                 }
-
-                System.out.println("\n Współrzędne skarbu to: (" + x + "," + y + ")");
+ 
+ 
+ 
                 //GENEROWANIE MAX. DWOCH RUCHOW KTORE ZAPEWNIA KROTSZE DOJSCIE DO SKARBU
                 int[] array1 = new int[2]; //tablica przechowująca pierwszy ruch
                 int[] array2 = new int[2]; //tablica przechowująca ewentualny drugi ruch
@@ -68,26 +75,33 @@ public class SKARBFI {
                         array2[0] = 2; // w przeciwnym razie jeśli x jest ujemne 
                     }
                 }
-
-                System.out.println("\n Więc po co się meczyć jak możesz pójść na skróty ...");
+ 
+ 
+ 
+              //  System.out.println("\n Więc po co się meczyć jak możesz pójść na skróty ...");
                 if (y == 0 && x != 0) {
-                    System.out.println("Ruch który zapewni Ci dojście do skarbu to : (" + array2[0] + "," + array2[1] + ")");
+                    System.out.println( array2[0] + " " + array2[1] );
+                   lista.add( array2[0] + " " + array2[1]);
                 }
                 if (y != 0 && x == 0) {
-                    System.out.println("Ruch który zapewni Ci dojście do skarbu to : (" + array1[0] + "," + array1[1] + ")");
+                    lista.add( array1[0] + " " + array1[1] );
                 }
                 if (y == 0 && x == 0) {
-                    System.out.println("Skarb znajduję się w studni!  ");
+                    lista.add("studnia  ");
                 }
                 if (y != 0 && x != 0) {
-                    System.out.println("Ruchy które zapewnią Ci dojście do skarbu to : ");
-                    System.out.println("(" + array1[0] + "," + array1[1] + ")");
-                    System.out.println("(" + array2[0] + "," + array2[1] + ")");
+                 //   System.out.println("Ruchy które zapewnią Ci dojście do skarbu to : ");
+                    lista.add ( array1[0] + " " + array1[1] );
+                    lista.add(array2[0] + " " + array2[1] );
                 }
-
+ 
+                System.out.println("");
             }
-        }
-       
-    }
-
-
+            for (String e : lista) {
+            System.out.println(e);
+                }
+ 
+ 
+ 
+	}
+}
